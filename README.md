@@ -15,10 +15,12 @@ and researchers to find them in order to analyze Florida's COVID-19 response.
 Since the state reports include the entire case line data listing, the file
 has become enormous (100 MB+) over time. This means this repository requires
 the Git LFS (large file storage) extension to be installed if you're going to
-clone the repository to your local machine and use git clone to download the
-files. I would recommend simply using GitHub's zip download feature instead.
+clone the repository to your local machine and use git clone to download all the
+files at once. I would recommend using GitHub's zip download feature but it's
+not yet compatible with Git LFS so it won't download any of PDF files for you.
 
-Otherwise you can [learn about and install Git LFS][1].
+You can [learn about and install Git LFS here][1].
 
 [1]: https://git-lfs.github.com/
 [2]: https://floridahealthcovid19.gov/
+[3]: https://github.com/olivierlacan/florida-department-of-health-covid-19-report-archive/archive/trunk.zip
