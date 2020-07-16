@@ -21,6 +21,21 @@ not yet compatible with Git LFS so it won't download any of PDF files for you.
 
 You can [learn about and install Git LFS here][1].
 
+### Download All Files from FDOH
+
+This will automatically create the same directory structure as the repo and
+fill it with any file that doesn't exist locally yet. It's pretty neat.
+
+```
+bundle install
+ruby download_all.rb
+```
+
+Then go drink some good coffee or tea, it'll be a while. :-)
+
+Some files are extremely slow to download and may result in a timeout, file
+an issue if that's the case and I'll check them out.
+
 [1]: https://git-lfs.github.com/
 [2]: https://floridahealthcovid19.gov/
 [3]: https://github.com/olivierlacan/florida-department-of-health-covid-19-report-archive/archive/trunk.zip
