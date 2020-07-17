@@ -40,10 +40,10 @@ urls.group_by { _1.match(/^([a_-zA-Z]+)_/).captures.first }.each do |dir, files|
   end
 
   puts "--- #{dir} --- "
-  files.each do |file|
+  files.reverse.each do |file|
     filename, extension = file.split(".")
     timestamp = filename.match(/$(\w+)(\d{4})(\d{2})(\d{2})\.*/)&.captures&.last
-    title, year, month, day, time = filename.match(/([a_-zA-Z]+)_(\d{4})(\d{2})(\d{2})(_\d{4})?/)&.captures
+    title, year, month, day, time = filename.match(/([a_-zA-Z]+)_(\d{4})(\d{2})(\d{2})(_\d{2,4}\w*)?/)&.captures
 
     new_filename = "#{title}_#{year}-#{month}-#{day}#{time&.gsub("_", "-")}.#{extension}"
     path = "#{new_dir}/#{new_filename}"
