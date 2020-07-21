@@ -35,6 +35,7 @@ urls.group_by { _1.match(/^([a_-zA-Z]+)_/).captures.first }.each do |dir, files|
     when "state_linelist" then "state/line_list"
     when "state_reports" then "state"
     when "pediatric_reports" then "pediatric"
+    when "serology_county" then "serology/counties"
   else
     dir
   end
