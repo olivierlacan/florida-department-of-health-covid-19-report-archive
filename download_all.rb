@@ -12,6 +12,9 @@ require "time"
 require "digest"
 
 REPOSITORY = "http://ww11.doh.state.fl.us/comm/_partners/covid19_report_archive/"
+FILENAMES = /^([a_-zA-Z1-9]+)_/
+TIMESTAMP = /$(\w+)(\d{4})(\d{2})(\d{2})\.*/
+EXTRACTOR = /([a_-zA-Z]+)_(\d{4})(\d{2})(\d{2})(_\d{2,4}\w*)?/
 
 puts "Checking #{REPOSITORY} for new files... "
 
@@ -26,7 +29,13 @@ end
 
 puts "Latest document modified at #{timestamps.sort.last.strftime("%Y-%m-%d %H:%M")}"
 
-urls.group_by { _1.match(/^([a_-zA-Z]+)_/).captures.first }.each do |dir, files|
+grouped_urls = urls.group_by do
+  _1.match(FILENAMES).captures.first
+# rescue => error
+#   binding.irb
+end
+
+grouped_urls.each do |dir, files|
   new_dir = case dir
     when "ltcf" then "long_term_care_facilities"
     when "ltcf_deaths" then "long_term_care_facilities/deaths"
@@ -43,8 +52,8 @@ urls.group_by { _1.match(/^([a_-zA-Z]+)_/).captures.first }.each do |dir, files|
   puts "--- #{dir} --- "
   files.reverse.each do |file|
     filename, extension = file.split(".")
-    timestamp = filename.match(/$(\w+)(\d{4})(\d{2})(\d{2})\.*/)&.captures&.last
-    title, year, month, day, time = filename.match(/([a_-zA-Z]+)_(\d{4})(\d{2})(\d{2})(_\d{2,4}\w*)?/)&.captures
+    timestamp = filename.match(TIMESTAMP)&.captures&.last
+    title, year, month, day, time = filename.match(EXTRACTOR)&.captures
 
     new_filename = "#{title}_#{year}-#{month}-#{day}#{time&.gsub("_", "-")}.#{extension}"
     path = "#{new_dir}/#{new_filename}"
