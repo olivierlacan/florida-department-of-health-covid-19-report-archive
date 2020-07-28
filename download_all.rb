@@ -31,8 +31,9 @@ puts "Latest document modified at #{timestamps.sort.last.strftime("%Y-%m-%d %H:%
 
 grouped_urls = urls.group_by do
   _1.match(FILENAMES).captures.first
-# rescue => error
-#   binding.irb
+rescue => error
+
+  binding.irb
 end
 
 grouped_urls.each do |dir, files|
